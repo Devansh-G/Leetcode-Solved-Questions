@@ -18,9 +18,13 @@ class Solution{
             return;
         }
         
-        int ax[] = { 0, 0, 1, -1};
-        int ay[] = { 1, -1, 0, 0};
-        char letter[] ={ 'R' , 'L' , 'D' , 'U' };
+        // int ax[] = { 0, 0, 1, -1};
+        // int ay[] = { 1, -1, 0, 0};
+        // char letter[] ={ 'R' , 'L' , 'D' , 'U' };
+        
+        int ax[] = { 1, 0, 0, -1};
+        int ay[] = { 0, -1, 1, 0};
+        char letter[] ={ 'D' , 'L' , 'R' , 'U' };
         for(int k=0;k<4;k++)
         {
             int nx = i+ ax[k] , ny = j + ay[k];
@@ -43,7 +47,8 @@ class Solution{
             return v;
         m[0][0]=0;
         dfs(v,s,0,0,m,n);
-        sort(v.begin(),v.end());
+        //sort(v.begin(),v.end());        // We wont need to sort this array if we took the lexiographical order from the start
+        // INSTEAD OF LINE 21-23 WE WRITE LINE 25 - 27
         return v;
     }
 };
