@@ -26,23 +26,34 @@ public:
 	int findMaxSum(int *arr, int n) {
 	    // code here
 	    
-	    //Memoization
+	   // Memoization
 	   // vector<int> dp(n,-1);
 	   // return fun(arr,dp,n-1);
 	   
-	   //
-	   vector<int> dp(n,-1);
-	   dp[0]=arr[0];
+	   //Tabulation
+	   //vector<int> dp(n,-1);
+	   //dp[0]=arr[0];
+	   //for(int i=1;i<n;i++)
+	   //{
+	   //    int take = arr[i];
+	   //    if(i>1)
+	   //         take+=dp[i-2];
+	   //    int not_take = dp[i-1];
+	       
+	   //    dp[i] = max(take, not_take);
+	   //}
+	   //return dp[n-1];
+	   
+	   int prev2=0, prev= arr[0], curr;
 	   for(int i=1;i<n;i++)
 	   {
-	       int take = arr[i];
-	       if(i>1)
-	            take+=dp[i-2];
-	       int not_take = dp[i-1];
-	       
-	       dp[i] = max(take, not_take);
+	       int take= arr[i] + prev2;
+	       int not_take= prev;
+	       curr = max(take, not_take);
+	       prev2=prev;
+	       prev = curr;
 	   }
-	   return dp[n-1];
+	   return prev;
 	}
 };
 
