@@ -30,34 +30,56 @@ class Solution {
         // vector<vector<int>> dp(n,vector<int> (4,-1));
         // return fun(points, dp , n-1, 3);
         
-        //
-        vector<vector<int>> dp(n,vector<int> (4,-1));
+        //Tabulation
         
-        for(int last=0;last<=3;last++)
-        {
-            int maxi=0;
-            for(int i=0;i<3;i++)
-            {
-                if(i!=last)
-                    maxi=max(maxi,points[0][i]);
-            }
-            dp[0][last]=maxi;
-        }
+        // vector<vector<int>> dp(n,vector<int> (4,-1));
         
-        for(int day=1;day<n;day++)
+        // for(int last=0;last<=3;last++)
+        // {
+        //     int maxi=0;
+        //     for(int i=0;i<3;i++)
+        //     {
+        //         if(i!=last)
+        //             maxi=max(maxi,points[0][i]);
+        //     }
+        //     dp[0][last]=maxi;
+        // }
+        
+        // for(int day=1;day<n;day++)
+        // {
+        //     for(int last=0;last<4;last++)
+        //     {
+        //         int maxi=0;
+        //         for(int i=0;i<3;i++)
+        //         {
+        //             if(i!=last)
+        //                 maxi=max(maxi, points[day][i] + dp[day-1][i]);
+        //         }
+        //         dp[day][last]=maxi;
+        //     }
+        // }
+        // return dp[n-1][3];
+        
+        //Space Optimisation
+        
+        vector<int> prev(4,0), curr(4,0);
+        for(int day=0; day<n; day++)
         {
-            for(int last=0;last<4;last++)
+            for(int last=0;last<=3;last++)
             {
                 int maxi=0;
                 for(int i=0;i<3;i++)
                 {
                     if(i!=last)
-                        maxi=max(maxi, points[day][i] + dp[day-1][i]);
+                        maxi=max(maxi , points[day][i] + prev[i]);
                 }
-                dp[day][last]=maxi;
+                curr[last] = maxi;
             }
+            prev=curr;
         }
-        return dp[n-1][3];
+        
+        
+        return curr[3];
     }
 };
 
