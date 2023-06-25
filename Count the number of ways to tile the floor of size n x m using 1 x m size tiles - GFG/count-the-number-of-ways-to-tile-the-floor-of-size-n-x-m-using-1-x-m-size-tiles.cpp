@@ -17,6 +17,7 @@ class Solution{
 		int countWays(int n, int m)
 	    {
 	    // Code here.
+	    //TABULATION
 	    int mod=1e9 + 7;
 	    if(n<m)
 	        return 1;
