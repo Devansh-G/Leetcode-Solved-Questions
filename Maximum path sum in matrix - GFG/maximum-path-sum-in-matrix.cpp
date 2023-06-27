@@ -38,35 +38,62 @@ public:
         
         
         //      TABULATION
-        vector<vector<int>> dp(N, vector<int> (N,-1));
+        // vector<vector<int>> dp(N, vector<int> (N,-1));
+        // for(int i=0;i<N;i++)
+        // {
+        //     for(int j=0;j<N;j++)
+        //     {
+        //         if(i==0)
+        //         {
+        //             dp[i][j] = Matrix[i][j];
+        //             continue;
+        //         }
+                
+        //         int rd =-1e9, ld=-1e9;
+        //         int s = Matrix[i][j] + dp[i-1][j];
+        //         if(j>0) 
+        //             ld= Matrix[i][j] + dp[i-1][j-1];
+                
+        //         if(j<N-1) 
+        //             rd = Matrix[i][j] + dp[i-1][j+1];
+                    
+        //         dp[i][j] = max(s, max(rd,ld));
+        //     }
+        // }
+        
+        // int maxi=dp[N-1][0];
+        // for(int j=1;j<N;j++)
+        //     maxi= max(maxi, dp[N-1][j]);
+        // return maxi;
+        
+        //      SPACE OPTIMISATION
+        vector<int> curr(N,-1), prev(N,-1);
+        
         for(int i=0;i<N;i++)
         {
+            prev=curr;
             for(int j=0;j<N;j++)
             {
                 if(i==0)
                 {
-                    dp[i][j] = Matrix[i][j];
+                    curr[j]= Matrix[i][j];
                     continue;
                 }
-                
-                int rd =-1e9, ld=-1e9;
-                int s = Matrix[i][j] + dp[i-1][j];
-                if(j>0) 
-                    ld= Matrix[i][j] + dp[i-1][j-1];
-                
-                if(j<N-1) 
-                    rd = Matrix[i][j] + dp[i-1][j+1];
-                    
-                dp[i][j] = max(s, max(rd,ld));
+                int s = Matrix[i][j] + prev[j];
+                int rd=-1e9, ld=-1e9;
+                if(j>0)
+                    ld = Matrix[i][j] + prev[j-1];
+                if(j<N-1)
+                    rd = Matrix[i][j] + prev[j+1];
+                curr[j] = max(s, max(rd,ld));
             }
         }
         
-        int maxi=dp[N-1][0];
+        int maxi = curr[0];
         for(int j=1;j<N;j++)
-            maxi= max(maxi, dp[N-1][j]);
+            maxi= max(maxi, curr[j]);
+    
         return maxi;
-        
-        //      SPACE OPTIMISATION
     }
 };
 
