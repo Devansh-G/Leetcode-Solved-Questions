@@ -6,25 +6,43 @@ using namespace std;
 class Solution {
   public:
   //        MEMOIZATION
-  int fun(vector<vector<int>> &triangle,vector<vector<int>> &dp, int i, int j)
-  {
-        if(i== triangle.size() - 1)
-            return triangle[i][j];
+//   int fun(vector<vector<int>> &triangle,vector<vector<int>> &dp, int i, int j)
+//   {
+//         if(i== triangle.size() - 1)
+//             return triangle[i][j];
         
-        if(dp[i][j]!=-1)
-            return dp[i][j];
-        int d = triangle[i][j] + fun(triangle, dp, i+1,j);
-        int dg = triangle[i][j] + fun(triangle, dp, i+1,j+1); 
+//         if(dp[i][j]!=-1)
+//             return dp[i][j];
+//         int d = triangle[i][j] + fun(triangle, dp, i+1,j);
+//         int dg = triangle[i][j] + fun(triangle, dp, i+1,j+1); 
         
-        return dp[i][j] = min(d,dg);
-  }
+//         return dp[i][j] = min(d,dg);
+//   }
     int minimizeSum(int n, vector<vector<int>>& triangle) {
         // Code here
         
         //MEMOIZATION
-        vector<vector<int>> dp(n,vector<int> (n,-1));
-        return fun(triangle, dp, 0,0);
+        // vector<vector<int>> dp(n,vector<int> (n,-1));
+        // return fun(triangle, dp, 0,0);
         
+        //      TABULATION
+        vector<vector<int>> dp(n,vector<int> (n,-1));
+        for(int i=n-1;i>=0;i--)
+        {
+            for(int j=0;j<=i;j++)
+            {
+                dp[i][j]=triangle[i][j];
+                if(i<n-1)
+                {
+                    int d = dp[i+1][j];
+                    int dg= dp[i+1][j+1];
+                    dp[i][j]+= min(d,dg);
+                }
+            }
+        }
+        return dp[0][0];
+        
+        //SEE SPACE OPTIMISATION FROM NOTES
     }
 };
 
