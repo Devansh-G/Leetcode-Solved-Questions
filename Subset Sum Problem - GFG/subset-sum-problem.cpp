@@ -43,26 +43,47 @@ public:
         // return solve(n-1,sum,arr,dp);
         
         //      TABULATION
+        // int n=arr.size();
+        // vector<vector<bool>> dp(n,vector<bool>(sum+1,0));
+        // for(int i=0;i<n;i++)
+        //     dp[i][0]=true;
+        // dp[0][arr[0]]=true;
+        
+        // for(int i=1;i<n;i++)
+        // {
+        //     for(int target=1; target<=sum; target++)
+        //     {
+        //         bool take = false, not_take= false;
+        //         not_take = dp[i-1][target];
+        //         if(target-arr[i]>=0)
+        //             take = dp[i-1][target-arr[i]];
+        //         dp[i][target] = take || not_take;
+        //     }
+        // }
+        // return dp[n-1][sum];
+        
+        //Space optimisation
         int n=arr.size();
-        vector<vector<bool>> dp(n,vector<bool>(sum+1,0));
-        for(int i=0;i<n;i++)
-            dp[i][0]=true;
-        dp[0][arr[0]]=true;
+        vector<bool> prev(sum+1,0), curr(sum+1,0);
+        curr[0]=true;
+        if(sum>=arr[0])
+            curr[arr[0]]=true;
         
         for(int i=1;i<n;i++)
         {
+            prev=curr;
+            curr[0]=true;
             for(int target=1; target<=sum; target++)
             {
                 bool take = false, not_take= false;
-                not_take = dp[i-1][target];
+                not_take = prev[target];
                 if(target-arr[i]>=0)
-                    take = dp[i-1][target-arr[i]];
-                dp[i][target] = take || not_take;
+                    take = prev[target-arr[i]];
+                curr[target] = take || not_take;
             }
         }
-        return dp[n-1][sum];
+        return curr[sum];
         
-        //Space 
         
     }
 };
