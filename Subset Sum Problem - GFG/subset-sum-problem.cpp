@@ -9,7 +9,7 @@ using namespace std;
 
 class Solution{   
 public:
-    bool solve(int ind,int sum,vector<int>arr,vector<vector<int>> &dp)
+    bool solve(int ind,int sum,vector<int> &arr,vector<vector<int>> &dp)
     {
         if(sum==0)
         return true;
