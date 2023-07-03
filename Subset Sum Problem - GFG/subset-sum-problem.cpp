@@ -9,38 +9,61 @@ using namespace std;
 
 class Solution{   
 public:
-    bool solve(int ind,int sum,vector<int> &arr,vector<vector<int>> &dp)
-    {
-        if(sum==0)
-        return true;
 
-        if(ind<0)
-        return false;
+    //      MEMOIZATION
+    // bool solve(int ind,int sum,vector<int> &arr,vector<vector<int>> &dp)
+    // {
+    //     if(sum==0)
+    //     return true;
+
+    //     if(ind<0)
+    //     return false;
         
-        if(ind==0)
-            return arr[0]==sum;
-        if(dp[ind][sum]!=-1)
-            return dp[ind][sum];
+    //     if(ind==0)
+    //         return arr[0]==sum;
+    //     if(dp[ind][sum]!=-1)
+    //         return dp[ind][sum];
         
         
-        bool notpick=0,pick=0;
+    //     bool notpick=0,pick=0;
         
-        notpick=solve(ind-1,sum,arr,dp);
+    //     notpick=solve(ind-1,sum,arr,dp);
         
-        if(arr[ind]<=sum)
-            pick=solve(ind-1,sum-arr[ind],arr,dp);
+    //     if(arr[ind]<=sum)
+    //         pick=solve(ind-1,sum-arr[ind],arr,dp);
         
-        return dp[ind][sum]= pick+notpick;
+    //     return dp[ind][sum]= pick+notpick;
         
-    }
+    // }
     bool isSubsetSum(vector<int>arr, int sum)
     {
-        // code here 
+        //      MEMOIZATION
+        // int n=arr.size();
+        // vector<vector<int>>dp(n,vector<int>(sum+1,-1));
+        // return solve(n-1,sum,arr,dp);
+        
+        //      TABULATION
         int n=arr.size();
+        vector<vector<bool>> dp(n,vector<bool>(sum+1,0));
+        for(int i=0;i<n;i++)
+            dp[i][0]=true;
+        dp[0][arr[0]]=true;
         
-        vector<vector<int>>dp(n,vector<int>(sum+1,-1));
+        for(int i=1;i<n;i++)
+        {
+            for(int target=1; target<=sum; target++)
+            {
+                bool take = false, not_take= false;
+                not_take = dp[i-1][target];
+                if(target-arr[i]>=0)
+                    take = dp[i-1][target-arr[i]];
+                dp[i][target] = take || not_take;
+            }
+        }
+        return dp[n-1][sum];
         
-        return solve(n-1,sum,arr,dp);
+        //Space 
+        
     }
 };
 
