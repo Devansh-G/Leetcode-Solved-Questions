@@ -14,8 +14,11 @@ class Solution{
 	    for(int i=0;i<n;i++)
 	        sum+=arr[i];
 	    vector<vector<int>> dp(n, vector<int>(sum+1,0));
-	    for(int target =1; target<=sum ; target++)
-	        dp[0][target] = (arr[0]==target);
+	   // for(int target =1; target<=sum ; target++)
+	   //     dp[0][target] = (arr[0]==target);
+	   
+	   //           OR
+	   dp[0][arr[0]] = 1; 
 	    
 	    for(int i=0;i<n;i++)
 	        dp[i][0] = 1;
