@@ -1,15 +1,15 @@
 //{ Driver Code Starts
 //Initial template for C++
 
-#include <bits/stdc++.h>
-using namespace std;
+#include<bits/stdc++.h> 
+using namespace std; 
 
 // } Driver Code Ends
 //User function template for C++
 
-class Solution{
-  public:
-   int lcs(string a, string b)
+class Solution{   
+public:
+int lcs(string a, string b)
     {
         int n= a.length();
         vector<int> curr(n+1,0),prev(n+1,0);
@@ -27,29 +27,31 @@ class Solution{
         }
         return curr[n];
     }
-    int countMin(string str){
-    //complete the function here
-    //calculating longest palindromic subsequence
-        string s=str;
+    int findMinInsertions(string S){
+        // code here 
+        //calculating longest palindromic subsequence
+        string s=S;
         reverse(s.begin(), s.end());
-        int len = lcs(s,str);
+        int len = lcs(s,S);
         //cout<<s.length()<<" "<<len;
         return s.length()-len;
     }
 };
 
 //{ Driver Code Starts.
+
+
+
 int main(){
     int t;
-    cin >> t;
+    cin>>t;
     while(t--){
-        string str;
-        cin >> str;
+        string S;
+        cin>>S;
         Solution ob;
-        cout << ob.countMin(str) << endl;
+        cout<<ob.findMinInsertions(S)<<endl;
     }
-return 0;
+    return 0;
 }
-
 
 // } Driver Code Ends
