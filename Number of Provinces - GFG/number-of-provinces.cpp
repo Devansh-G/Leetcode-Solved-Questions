@@ -8,6 +8,7 @@ using namespace std;
 
 class Solution {
   public:
+  // see number of provinces from leetcode
     void dfs(int i, int &V, vector<vector<int>> &adj, vector<int> &vis)
     {
         vis[i] = 1;
