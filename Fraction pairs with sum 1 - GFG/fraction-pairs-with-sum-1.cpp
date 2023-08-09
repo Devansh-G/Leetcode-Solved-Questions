@@ -10,30 +10,49 @@ class Solution
     public:
     int countFractions(int n, int numerator[], int denominator[])
     {
-        // int ans = 0;
-        // //double f[n];
-        // unordered_map<double, int> mp;
-        // for(int i=0; i<n ;i++)
-        // {
-        //     double frac = 1.0 * numerator[i] / denominator[i];
-        //     mp[f[i]] = 
-        // }
-        int res =0;
-        double val[n];
-        unordered_map<double,int> mp;
-        for(int i=0; i<n; i++){
-            val[i] = 1.0*numerator[i]/denominator[i];
-            mp[val[i]]++;
-            
-        }
-       
-        for(int i=0; i<n; i++)
+        int ans = 0;
+        //double f[n];
+        unordered_map<double, int> mp;
+        for(int i=0; i<n ;i++)
         {
-            double a=double(denominator[i]-numerator[i])/double(denominator[i]);
-            mp[val[i]]--;
-            res += mp[a];
+            double frac = 1.0 * numerator[i] / denominator[i];
+            mp[frac] ++;
         }
-        return res;
+        for (int i = 0; i<n ;i++)
+        {
+            double frac = (1.0 * numerator[i]) / denominator[i];
+            double inv = (1.0 * (denominator[i] - numerator[i])) / denominator[i];
+            if(frac == 0.5)
+            {
+                ans += (mp[frac] * (mp[frac] - 1)) / 2;
+                mp.erase(frac);
+            }
+            else
+            {
+                ans += mp[frac] * mp[inv];
+                mp.erase(frac);
+                mp.erase(inv);
+            }
+        }
+        return ans;
+        
+        
+        // int res =0;
+        // double val[n];
+        // unordered_map<double,int> mp;
+        // for(int i=0; i<n; i++){
+        //     val[i] = 1.0*numerator[i]/denominator[i];
+        //     mp[val[i]]++;
+            
+        // }
+       
+        // for(int i=0; i<n; i++)
+        // {
+        //     double a=double(denominator[i]-numerator[i])/double(denominator[i]);
+        //     mp[val[i]]--;
+        //     res += mp[a];
+        // }
+        // return res;
 
         
     }
