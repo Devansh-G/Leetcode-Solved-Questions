@@ -7,35 +7,67 @@ class Solution
 {
 	public:
 	//Function to return list containing vertices in Topological order. 
-	void dfs(int &node,vector<int> &vis, vector<int> adj[], stack<int> &st)
-	{
-	    vis[node] = 1;
-	    for(auto adjacentNode : adj[node])
-	    {
-	        if(!vis[adjacentNode])
-                dfs(adjacentNode, vis, adj, st);
-	    }
-	    st.push(node);
-	    return ;
-	}
+	//DFS
+// 	void dfs(int &node,vector<int> &vis, vector<int> adj[], stack<int> &st)
+// 	{
+// 	    vis[node] = 1;
+// 	    for(auto adjacentNode : adj[node])
+// 	    {
+// 	        if(!vis[adjacentNode])
+//                 dfs(adjacentNode, vis, adj, st);
+// 	    }
+// 	    st.push(node);
+// 	    return ;
+// 	}
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
 	    // code here
-	    vector<int> vis(V, 0);
-	    stack<int> st;
-	    for(int i=0 ; i<V ;i++)
-	    {
-	        if(!vis[i])
-	            dfs(i,vis, adj, st);
-	    }
+	    //DFS
+	   // vector<int> vis(V, 0);
+	   // stack<int> st;
+	   // for(int i=0 ; i<V ;i++)
+	   // {
+	   //     if(!vis[i])
+	   //         dfs(i,vis, adj, st);
+	   // }
 	    
-	    vector<int> ans;
-	    while(!st.empty())
+	   // vector<int> ans;
+	   // while(!st.empty())
+	   // {
+	   //     ans.push_back(st.top());
+	   //     st.pop();
+	   // }
+	   // return ans;
+	   
+	   //BFS or Kahn's Algorithm
+	   vector<int> indegrees(V,0);
+	   for(int i=0 ;i< V; i++)
+	   {
+	       for(auto node : adj[i])
+	           indegrees[node]++;
+	   }
+	   
+	    vector<int> topo;
+	    queue<int> q;
+	    for(int i =0 ; i<V ; i++)
 	    {
-	        ans.push_back(st.top());
-	        st.pop();
-	    }
-	    return ans;
+	        if(indegrees[i] == 0)
+	            q.push(i);
+        }
+        while(!q.empty())
+        {
+            int node = q.front();
+            q.pop();
+            topo.push_back(node);
+            for(auto adjacentNode : adj[node])
+            {
+                indegrees[adjacentNode]--;
+                if(indegrees[adjacentNode]==0)
+                    q.push(adjacentNode);
+            }
+        }
+        
+        return topo;
 	}
 };
 
