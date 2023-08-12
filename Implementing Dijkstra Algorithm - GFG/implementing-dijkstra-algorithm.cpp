@@ -10,21 +10,50 @@ class Solution
     //from the source vertex S.
     vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
-        // Code here
-        priority_queue<pair<int, int> , vector<pair<int, int>>, greater<pair<int, int>>> pq;
-        pq.push({0,S});
+        // Priority Queue
+        
+        // priority_queue<pair<int, int> , vector<pair<int, int>>, greater<pair<int, int>>> pq;
+        // pq.push({0,S});
+        // vector<int> dist(V, 1e9);
+        // dist[S] = 0;
+        // while(!pq.empty())
+        // {
+        //     int node = pq.top().second;
+        //     pq.pop();
+        //     for(auto it : adj[node])
+        //     {
+        //         if(dist[node] + it[1] < dist[it[0]])
+        //         {
+        //             dist[it[0]] = dist[node] + it[1];
+        //             pq.push({dist[it[0]], it[0]});
+        //         }
+        //     }
+        // }
+        // return dist;
+        
+        
+        //SET
+        
+        set<pair<int,int>> st;
+        st.insert({0,S});
         vector<int> dist(V, 1e9);
         dist[S] = 0;
-        while(!pq.empty())
+        
+        while(!st.empty())
         {
-            int node = pq.top().second;
-            pq.pop();
+            auto it = *(st.begin());
+            int node = it.second;
+            int distance = it.first;
+            st.erase({distance,node});
             for(auto it : adj[node])
             {
                 if(dist[node] + it[1] < dist[it[0]])
                 {
+                    if(dist[it[0]] != 1e9);
+                        st.erase({dist[it[0]], it[0]});
+                        
                     dist[it[0]] = dist[node] + it[1];
-                    pq.push({dist[it[0]], it[0]});
+                    st.insert({dist[it[0]], it[0]});
                 }
             }
         }
