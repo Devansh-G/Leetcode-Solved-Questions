@@ -57,15 +57,17 @@ class Solution
         // return sum;
         
         //KRUSKALS ALGO
-        vector<pair<int, pair<int, int>>>v;
+        //vector<pair<int, pair<int, int>>>v;
+        priority_queue<pair<int, pair<int, int>>, vector<pair<int,pair<int,int>>>, greater<pair<int, pair<int,int>>> > pq;
         for(int i = 0; i<V ; i++)
         {
             for(auto it : adj[i])
             {
-                v.push_back({it[1], {i, it[0]}});
+                // v.push_back({it[1], {i, it[0]}});
+                pq.push({it[1], {i, it[0]}});
             }
         }
-        sort(v.begin(), v.end());
+        //sort(v.begin(), v.end());
         
         vector<int> size(V, 1), par(V);
         for(int i=0;i<V;i++)
@@ -74,11 +76,17 @@ class Solution
         }
         int ans = 0;
         
-        for(auto it : v)
+        //for(auto it : v)
+        while(!pq.empty())
         {
-            int wt = it.first;
-            int u = it.second.first;
-            int v = it.second.second;
+            // int wt = it.first;
+            // int u = it.second.first;
+            // int v = it.second.second;
+            
+            int wt = pq.top().first;
+            int u = pq.top().second.first;
+            int v = pq.top().second.second;
+            pq.pop();
             
             if(findPar(u,par) != findPar(v, par))
             {
